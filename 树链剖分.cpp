@@ -1,221 +1,200 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-const int maxn=1e5+100;
-struct edge
+typedef long long ll;
+const int maxn=1e7+10;
+int n;
+string s;
+string t;
+map<string,int> m;
+int a[20];
+int b[maxn];
+inline bool add(int x,int j,int i)
 {
-    int v,next;
-} e[maxn*2];
-struct Tree
-{
-    int sum,l,r,lazy;
-} tree[maxn*4];
-
-int top[maxn],tim,dfn[maxn],son[maxn],w[maxn],head[maxn],a[maxn],siz[maxn],deep[maxn],fa[maxn],mod,t;
-
-void add(int u,int v)
-{
-    t++;
-    e[t].v=v;
-    e[t].next=head[u];
-    head[u]=t;
-}
-
-void pushup(int rt)
-{
-    tree[rt].sum=(tree[rt<<1].sum+tree[rt<<1|1].sum)%mod;
-}
-
-void pushdown(int rt,int len)
-{
-    if (tree[rt].lazy==0)
-        return;
-    tree[rt<<1].lazy+=tree[rt].lazy;
-    tree[rt<<1|1].lazy+=tree[rt].lazy;
-    tree[rt<<1].sum=(tree[rt<<1].sum+tree[rt].lazy*(len-(len>>1)))%mod;
-    tree[rt<<1|1].sum=(tree[rt<<1|1].sum+tree[rt].lazy*(len>>1))%mod;
-    tree[rt].lazy=0;
-}
-
-void build(int rt,int l,int r)
-{
-    tree[rt].l=l;
-    tree[rt].r=r;
-    tree[rt].sum=0;
-    if (l==r)
+    int flag=0;
+    if (x==0||x==2||x==4||x==5||x==7||x==9||x==11)
     {
-        tree[rt].sum=w[l];
-        return;
-    }
-    int mid=(l+r)>>1;
-    build(rt<<1,l,mid);
-    build (rt<<1|1,mid+1,r);
-    pushup(rt);
-}
-
-void update(int rt,int l,int r,int z)
-{
-    if (l<=tree[rt].l&&tree[rt].r<=r)
-    {
-        tree[rt].lazy+=z;
-        tree[rt].sum+=z*(tree[rt].r-tree[rt].l+1);
-        return;
-    }
-    pushdown(rt,tree[rt].r-tree[rt].l+1);
-    int mid=(tree[rt].l+tree[rt].r)>>1;
-    if (l<=mid)
-    {
-        update(rt<<1,l,mid,z);
-    }
-    if (r>mid)
-    {
-        update(rt<<1|1,mid+1,r,z);
-    }
-    pushup(rt);
-}
-void dfs1(int u,int f)
-{
-    deep[u]=deep[f]+1;
-    siz[u]=1;
-    fa[u]=f;
-    int maxsiz=-1;
-    for (int i=head[u]; i; i=e[i].next)
-    {
-        int v=e[i].v;
-        if (v==f)
+        a[1]++;
+        if (a[1]==j-i+1)
         {
-            continue;
-        }
-        dfs1(v,u);
-        siz[u]+=siz[v];
-        if (siz[v]>maxsiz)
-        {
-            maxsiz=siz[v];
-            son[u]=v;
+            flag=1;
         }
     }
-}
-
-void dfs2(int u,int Top)
-{
-    dfn[u]=++tim;
-    w[tim]=a[u];
-    top[u]=Top;
-    if (!son[u])
+    if (x==1||x==3||x==5||x==6||x==8||x==10||x==0)
     {
-        return;
-    }
-    dfs2(son[u],Top);
-    for (int i=head[u]; i; i=e[i].next)
-    {
-        int v=e[i].v;
-        if (v==fa[u]||v==son[u])
+        a[2]++;
+        if (a[2]==j-i+1)
         {
-            continue;
+            flag=1;
         }
-        dfs2(v,v);
     }
-}
-
-void update1(int x,int y,int z)
-{
-    z=z%mod;
-    while (top[x]!=top[y])
+    if (x==2||x==4||x==6||x==7||x==9||x==11||x==1)
     {
-        if (deep[top[x]]<deep[top[y]])
+        a[3]++;
+        if (a[3]==j-i+1)
         {
-            swap(x,y);
+            flag=1;
         }
-        update(1,dfn[top[x]],dfn[x],z);
-        x=fa[top[x]];
     }
-    if (deep[x]>deep[y])
+    if (x==3||x==5||x==7||x==8||x==10||x==0||x==2)
     {
-        swap(x,y);
-    }
-    update(1,dfn[x],dfn[y],z);
-}
-
-int query(int rt,int l,int r)
-{
-    if (l<=tree[rt].l&&tree[rt].r<=r)
-    {
-        return tree[rt].sum;
-    }
-    int ret=0;
-    int mid=(tree[rt].l+tree[rt].r)>>1;
-    if (l<=mid)
-        ret=(ret+query(rt<<1,l,mid))%mod;
-    if (r>mid)
-        ret=(ret+query(rt<<1|1,mid+1,r))%mod;
-    return ret;
-}
-
-int query1(int x,int y)
-{
-    int ret=0;
-    while (top[x]!=top[y])
-    {
-        if (deep[top[x]]<deep[top[y]])
+        a[4]++;
+        if (a[4]==j-i+1)
         {
-            swap(x,y);
+            flag=1;
         }
-        ret+=query(1,dfn[top[x]],dfn[x]);
-        x=fa[top[x]];
     }
-    if (deep[x]>deep[y])
+    if (x==4||x==6||x==8||x==9||x==11||x==1||x==3)
     {
-        swap(x,y);
+        a[5]++;
+        if (a[5]==j-i+1)
+        {
+            flag=1;
+        }
     }
-    ret+=query(1,dfn[x],dfn[y]);
-    return ret%mod;
+    if (x==5||x==7||x==9||x==10||x==0||x==2||x==4)
+    {
+        a[6]++;
+        if (a[6]==j-i+1)
+        {
+            flag=1;
+        }
+    }
+    if (x==6||x==8||x==10||x==11||x==1||x==3||x==5)
+    {
+        a[7]++;
+        if (a[7]==j-i+1)
+        {
+            flag=1;
+        }
+    }
+    if (x==7||x==9||x==11||x==0||x==2||x==4||x==6)
+    {
+        a[8]++;
+        if (a[8]==j-i+1)
+        {
+            flag=1;
+        }
+    }
+    if (x==8||x==10||x==0||x==1||x==3||x==5||x==7)
+    {
+        a[9]++;
+        if (a[9]==j-i+1)
+        {
+            flag=1;
+        }
+    }
+    if (x==9||x==11||x==1||x==2||x==4||x==6||x==8)
+    {
+        a[10]++;
+        if (a[10]==j-i+1)
+        {
+            flag=1;
+        }
+    }
+    if (x==10||x==0||x==2||x==3||x==5||x==7||x==9)
+    {
+        a[11]++;
+        if (a[11]==j-i+1)
+        {
+            flag=1;
+        }
+    }
+    if (x==11||x==1||x==3||x==4||x==6||x==8||x==10)
+    {
+        a[12]++;
+        if (a[12]==j-i+1)
+        {
+            flag=1;
+        }
+    }
+    return flag;
 }
 
 int main()
 {
-    int n,m,r;
-    scanf("%d%d%d%d",&n,&m,&r,&mod);
-    for (int i=1; i<=n; ++i)
+    freopen("4.txt","r",stdin);
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    cin>>n;
+    m["Do"]=0;
+    m["Do#"]=1;
+    m["Re"]=2;
+    m["Re#"]=3;
+    m["Mi"]=4;
+    m["Fa"]=5;
+    m["Fa#"]=6;
+    m["Sol"]=7;
+    m["Sol#"]=8;
+    m["La"]=9;
+    m["La#"]=10;
+    m["Si"]=11;
+    for (int i=1; i<=n; i++)
     {
-        scanf("%d",&a[i]);
+        cin>>s;
+        b[i]=m[s];
     }
-    for (int i=1,u,v; i<n; i++)
+    int r=1;
+    add(b[1],1,1);
+    for (int i=n; i>=1; i--)
     {
-        scanf("%d%d",&u,&v);
-        add(u,v);
-        add(v,u);
-    }
-    dfs1(r,0);
-    dfs2(r,r);
-    build(1,1,n);
-    while (m--)
-    {
-        int op;
-        scanf("%d",&op);
-        if (op==1)
+        if (add(b[i],n+1,i))
         {
-            int x,y,z;
-            scanf("%d%d%d",&x,&y,&z);
-            update1(x,y,z);
         }
-        if (op==2)
+        else
         {
-            int x,y;
-            scanf("%d%d",&x,&y);
-            printf("%d\n",query1(x,y));
-        }
-        if (op==3)
-        {
-            int x,z;
-            scanf("%d%d",&x,&z);
-            update(1,dfn[x],dfn[x]+siz[x]-1,z);
-        }
-        if (op==4)
-        {
-            int x;
-            scanf("%d",&x);
-            printf("%d\n",query(1,dfn[x],dfn[x]+siz[x]-1));
+            r=i;
+            break;
         }
     }
+    int l=n;
+    for (int i=2; i<=n; i++)
+    {
+        if (add(b[i],n+r+1+i-2,0))
+        {
+        }
+        else
+        {
+            l=i;
+            break;
+        }
+    }
+    int ans=1,f;
+    int last=l;
+    for (int i=1; i<=12; i++)
+    {
+        a[i]=0;
+    }
+    for (int i=l; i<=r; i++)
+    {
+        f=0;
+        if (add(b[i],i,last))
+        {
+            f=1;
+        }
+        else
+        {
+            ans++;
+            last=i;
+            if (i==r)
+            {
+                ans++;
+                break;
+            }
+            for (int j=1; j<=12; j++)
+            {
+                a[j]=0;
+            }
+            add(b[i],1,1);
+        }
+        if (f==1&&i==r)
+        {
+            ans++;
+        }
+    }
+    cout<<ans<<endl;
     return 0;
 }
+
+
