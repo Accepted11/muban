@@ -1,36 +1,95 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+
 using namespace std;
+
 typedef long long ll;
-const double pi=acos(-1.0);
-const int maxn = 100000;
-struct node{
-    ll sun,ni;
-}f[maxn];
-bool cmp(node x,node y){return x.sun<y.sun;}
-ll sth,stm,sts;
-int main() {
-    int n;
-    scanf("%d%lld%lld%lld",&n,&sth,&stm,&sts);
-    ll h,m,s,tmp;
-    if(sth>=12)sth-=12;
-    ll p=sth*3600+stm*60+sts;
-    for(int i=1;i<=n;++i){
-        scanf("%lld%lld%lld",&h,&m,&s);
-        if(h>=12) h-=12;
-        tmp=h*3600+m*60+s;
-        tmp-=p;
-        if(tmp<0) tmp+=12*3600;
-        f[i].sun=tmp;
-        f[i].ni=12*3600-tmp;
+const int maxn=100010;
+struct node
+{
+    int v,w;
+    node(int _v,int _w):v(_v),w(_w) {};
+};
+vector<node>vec[maxn];
+void dfs(int u,int fa)
+{
+    int id;
+    for (int i=0; i<E[u].size(); i++)
+    {
+        int v=E[u][i];
+        if (v==fa)
+        {
+            id=i;
+            continue;
+        }
+        dfs(v,u);
+        s[u]+=f[v];
     }
-    sort(f+1,f+1+n,cmp);
-    ll ans=min(f[n].sun,f[1].ni);
-    for(int i=1;i<=n;++i){
-        if(i<n)
-        ans=min(ans,2*f[i].sun+f[i+1].ni);
-        if(i>1)
-        ans=min(ans,2*f[i].ni+f[i-1].sun);
+    
+    
+}
+
+void dfs(int u,int fa)
+{
+    int id;
+    for(int i=0; i<edge[u].size(); i++)
+    {
+        int v=edge[u][i];
+        if(v==fa)
+        {
+            id=i;
+            continue;
+        }
+        dfs(v,u);
+        s[u]+=f[v];
     }
-    printf("%.2f\n",(ans*6.0));
+    if(vis[u])
+    {
+        g[u]=s[u];
+        if(fa!=-1)
+            f[u]=g[u]+weight[u][id];
+    }
+    else
+    {
+        ll mi=1e18;
+        bool flag=false;
+        for(int i=0; i<edge[u].size(); i++)
+        {
+            int v=edge[u][i];
+            if(v==fa)
+                continue;
+            flag=true;
+            mi=min(mi,s[u]-f[v]+g[v]);
+        }
+        if(flag)
+            g[u]=mi;
+        if(fa!=-1)
+            f[u]=min(s[u],g[u]+weight[u][id]);
+    }
+}
+
+int main()
+{
+    scanf("%d%d",&n,&k);
+
+    for (int i=1,u,v,w; i<n; i++)
+    {
+        scanf("%d%d%d",&u,&v,&w);
+        u++;
+        v++;
+        E[u].push_back(node(v,w));
+        E[v].push_back(node(u,w));
+    }
+
+    for (int i=1,x; i<=k; i++)
+    {
+        scanf("%d",&x);
+        x++;
+        vis[x]=1;
+        root=x;
+    }
+
+    dfs(root,-1);
+    ll ans=g[root];
+    printf("%lld\n",ans);
     return 0;
 }
