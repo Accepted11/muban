@@ -1,96 +1,97 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-
-const int maxn=200010;
-int t1[maxn],t2[maxn],c[maxn];
-typedef long long ll;
-bool cmp(int *r,int a,int b,int l) {
-    return r[a] == r[b] && r[a + l] == r[b + l];
+int lcm(int a,int b)
+{
+    return a/__gcd(a,b)*b;
 }
-
-void da(int str[],int sa[],int rank[],int height[],int n,int m) {
-    n++;
-    int i, j, p, *x = t1, *y = t2;
-    for (int i = 0; i < m; i++) c[i] = 0;
-    for (int i = 0; i < n; i++) c[x[i] = str[i]]++;
-    for (int i = 1; i < m; i++) c[i] += c[i - 1];
-    for (int i = n - 1; i >= 0; i--) sa[--c[x[i]]] = i;
-    for (int j = 1; j <= n; j <<= 1) {
-        p = 0;
-        for (int i = n - j; i < n; i++) y[p++] = i;
-        for (int i = 0; i < n; i++) if (sa[i] >= j) y[p++] = sa[i] - j;
-        for (int i = 0; i < m; i++) c[i] = 0;
-        for (int i = 0; i < n; i++) c[x[y[i]]]++;
-        for (int i = 1; i < m; i++) c[i] += c[i - 1];
-        for (int i = n - 1; i >= 0; i--) sa[--c[x[y[i]]]] = y[i];
-        swap(x, y);
-        p = 1;
-        x[sa[0]] = 0;
-        for (int i = 1; i < n; i++)
-            x[sa[i]] = cmp(y, sa[i - 1], sa[i], j) ? p - 1 : p++;
-        if (p >= n) break;
-        m = p;
+bool judge(int x)
+{
+    for(int i=2; 1; ++i)
+    {
+        int t=i*i;
+        if(t>x)
+            return 1;
+        if(x%t==0)
+            return 0;
     }
-    int k = 0;
-    n--;
-    for (int i = 0; i <= n; i++) rank[sa[i]] = i;
-    for (int i = 0; i < n; i++) {
-        if (k) k--;
-        j = sa[rank[i] - 1];
-        while (str[i + k] == str[j + k]) k++;
-        height[rank[i]] = k;
+    return 1;
+}
+struct node
+{
+    int fz;
+    int fm;
+    node()
+    {
+        fz=0;
+        fm=1;
     }
-}
-int len;
-char str[maxn];
-int k,a[maxn],sa[maxn];
-int Rank[maxn],height[maxn],RMQ[maxn];
-int best[20][maxn];
-void initRMQ(int n) {
-    k=log2(n);
-    for (int i = 0; i <= n; i++)
-        best[0][i] = a[i];
-    for (int i = 1; i <= k; i++) {
-        for (int j = 0; j + (1 << i) - 1 <= n; j++) {
-            best[i][j]=min(best[i - 1][j],best[i - 1][j + (1 << (i - 1))]);
-        }
+
+    void print()
+    {
+        printf("%d/%d\n",fz,fm);
     }
+    void reverse()
+    {
+        swap(fz,fm);
+    }
+};
+node min(node a,node b)
+{
+    int lcm2=lcm(a.fm,b.fm);
+    int bei1=lcm2/a.fm;
+    int bei2=lcm2/b.fm;
+    int t1=a.fz*bei1;
+    int t2=b.fz*bei2;
+    if(t1<=t2)
+        return a;
+    return b;
 }
-
-int askRMQ(int a,int b) {
-    int t;
-    t = log2(b - a + 1);
-    b -= (1 << t) - 1;
-    return min(best[t][a],best[t][b]);
+void add(node& a,node b)
+{
+    int lcm2=lcm(a.fm,b.fm);//printf("%d\n",lcm2);
+    int bei1=lcm2/a.fm;
+    int bei2=lcm2/b.fm;
+    a.fz=a.fz*bei1+b.fz*bei2;
+    a.fm=lcm2;
+    int t=__gcd(a.fz,a.fm);
+    a.fz/=t;
+    a.fm/=t;
 }
+int main()
+{
+    freopen("D:/123.txt","w",stdout);
+    double ans=0;
+    for(int n=1; n<=10000; ++n)
+    {
 
-int ask(int l,int r){
-    if (l==r) return len-sa[r];
-    return askRMQ(l+1,r);
-}
+        node oo;
+        oo.fz=1000000;
+        oo.fm=1;
+        for(int i=1; i<=n; ++i)
+        {
+            node ans;
+            for(int j=1; j<=i; ++j)
+            {
+                if(i%j)
+                    continue;
+                if(judge(j))
+                {
+                    //printf("i== %d  j== %d\n",i,j);
+                    node t;
+                    t.fz=1;
+                    t.fm=j;
+                    add(ans,t);
 
-int main() {
-    int _;
-    scanf("%d", &_);
-    while (_--) {
-        scanf("%d", &k);
-        scanf("%s", str);
-        len = strlen(str);
-        for (int i = 0; i < len; i++) {
-            a[i] = str[i] - 'a' + 1;
+                    //ans.print();
+                }
+                //
+            }
+            ans.reverse();
+            oo=min(oo,ans);
         }
-        a[len] = 0;
-        da(a, sa, Rank, height, len, 30);
-        initRMQ(len);
-        ll ans = 0;
-        for (int i = 1; i + k - 1 <= len; i++) {
-            ans += ask(i, i + k - 1);
-            if (i - 1 > 0) ans -= ask(i - 1, i + k - 1);
-            if (i + k <= len) ans -= ask(i, i + k);
-            if (i - 1 > 0 && i + k <= len) ans += ask(i - 1, i + k);
-        }
-        printf("%lld\n", ans);
+        printf("i= %d   ",n);
+        oo.print();
     }
     return 0;
 }
