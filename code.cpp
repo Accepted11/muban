@@ -1,97 +1,51 @@
-#include <bits/stdc++.h>
 
-using namespace std;
-int lcm(int a,int b)
+const int maxn=50010;
+const int DIM=10;
+inline double sqr(double)
 {
-    return a/__gcd(a,b)*b;
+    return x*x;
 }
-bool judge(int x)
+namespace KDTtree
 {
-    for(int i=2; 1; ++i)
+int k;
+struct Point
+{
+    int x[DIM];
+    double distance(const Point &b)const
     {
-        int t=i*i;
-        if(t>x)
-            return 1;
-        if(x%t==0)
-            return 0;
+        double ret=0;
+        for (int i=0; i<k; i++)
+            ret+=sqr(x[i]-b.x[i]);
+        return ret;
     }
-    return 1;
-}
-struct node
-{
-    int fz;
-    int fm;
-    node()
+    void input()
     {
-        fz=0;
-        fm=1;
+        for (int i=0; i<k; i++)
+            scanf("%d",&x[i]);
     }
-
-    void print()
+    void output()
     {
-        printf("%d/%d\n",fz,fm);
-    }
-    void reverse()
-    {
-        swap(fz,fm);
-    }
-};
-node min(node a,node b)
-{
-    int lcm2=lcm(a.fm,b.fm);
-    int bei1=lcm2/a.fm;
-    int bei2=lcm2/b.fm;
-    int t1=a.fz*bei1;
-    int t2=b.fz*bei2;
-    if(t1<=t2)
-        return a;
-    return b;
-}
-void add(node& a,node b)
-{
-    int lcm2=lcm(a.fm,b.fm);//printf("%d\n",lcm2);
-    int bei1=lcm2/a.fm;
-    int bei2=lcm2/b.fm;
-    a.fz=a.fz*bei1+b.fz*bei2;
-    a.fm=lcm2;
-    int t=__gcd(a.fz,a.fm);
-    a.fz/=t;
-    a.fm/=t;
-}
-int main()
-{
-    freopen("D:/123.txt","w",stdout);
-    double ans=0;
-    for(int n=1; n<=10000; ++n)
-    {
-
-        node oo;
-        oo.fz=1000000;
-        oo.fm=1;
-        for(int i=1; i<=n; ++i)
+        for (int i=0; i<k; i++)
         {
-            node ans;
-            for(int j=1; j<=i; ++j)
-            {
-                if(i%j)
-                    continue;
-                if(judge(j))
-                {
-                    //printf("i== %d  j== %d\n",i,j);
-                    node t;
-                    t.fz=1;
-                    t.fm=j;
-                    add(ans,t);
-
-                    //ans.print();
-                }
-                //
-            }
-            ans.reverse();
-            oo=min(oo,ans);
+            printf("%d",x[i]);
+            if (i==k-1)
+                printf("\n");
+            else
+                printf(" ");
         }
-        printf("i= %d   ",n);
-        oo.print();
     }
-    return 0;
-}
+    struct qnode
+    {
+        Point p;
+        double dis;
+        qonde(){};
+        qonde(Point _p,double _dis):p(_p),dis(_dis){}
+        bool operator <(const qonde &b) const{
+            return dis<b.dis;
+        }
+    };
+    priority_queue<qnode>q;
+    struct cmpx{
+        int div;
+        cmpx()
+    };
