@@ -1,0 +1,126 @@
+\documentclass[12pt]{article}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{aligned-overset}
+\usepackage{bookmark}
+\usepackage{fancyhdr}
+\usepackage{array}
+\usepackage{appendix}
+\usepackage{bm}
+\usepackage{chapterbib}
+\usepackage{float}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{natbib}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{enumerate}
+\geometry{left=2.18cm,right=2.08cm,top=1.84cm,bottom=1.84cm}
+\usepackage{graphicx}
+\pagestyle{plain}   
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{caption2}
+\usepackage{datetime} %日期
+\renewcommand{\today}{\number\year 年 \number\month 月 \number\day 日}
+\renewcommand{\captionlabelfont}{\small}
+\renewcommand{\captionfont}{\small}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0em} 
+\renewcommand{\baselinestretch}{1.2}
+\renewcommand\arraystretch{2}
+\lstset{language=Matlab}%代码语言使用的是matlab
+\definecolor{commentgreen}{RGB}{2,112,10}
+\definecolor{eminence}{RGB}{108,48,130}
+\definecolor{weborange}{RGB}{255,165,0}
+\definecolor{frenchplum}{RGB}{129,20,83}
+\newfontfamily\codeFont{SourceCodePro-Medium}
+\newfontfamily\codeBold{SourceCodePro-Bold}
+\newfontfamily\commentFont{Courier Regular}
+\pagestyle{plain}   
+\lstset{breaklines}%自动将长的代码行换行排版
+
+\lstset{extendedchars=false}%解决代码跨页时，章节标题，页眉等汉字不显示的问题
+\title{基于SIR模型对武汉新型冠状病毒疫情分析} 
+\date{} 
+\begin{document}
+\begin{figure}
+    \centering
+    \includegraphics[width=8cm]{upc.png}
+    \label{figupc}
+\end{figure}
+    \begin{center}
+        \quad \\
+        \heiti \fontsize{45}{17} \quad \quad \quad 
+        \vskip 1cm
+        \heiti \zihao{2} 中国梦与美国梦
+    \end{center}
+  \vskip 4cm
+  \begin{quotation}
+%   \begin{center}
+        \doublespacing
+        
+        \zihao{4}\par\setlength\parindent{9em}
+        \quad 
+
+        学生姓名：\underline{\qquad \quad 张世琛  \qquad\quad}
+
+        学\hspace{0.77cm} 号：\underline{\qquad 1804030401\qquad\quad}
+        
+        专业班级：\underline{\qquad 计科1802 \qquad\quad  }
+        
+        学\hspace{0.77cm} 院：\underline{计算机科学与技术学院}
+%   \end{center}
+        \vskip 6cm
+        \centering
+        \today
+    \end{quotation}
+    % \begin{quotation}
+    %     \centering
+    % \begin{table}[H]
+    %         \centering 
+    %         \zihao{4}
+    %         \begin{tabular}{|c|c|c|c|c|}
+            
+    %             \hline
+    %             姓名& 张世琛 &李选  & 曹佳慧 & 张子锜 \\
+    %             \hline
+    %             学号&1804030401&1808010202& 1808010203&1808010201\\
+    %             \hline
+    %             班级&计科1802&计科1802& 计科1802&计科1802\\
+                
+    %             \hline
+    %         \end{tabular}
+    %     \end{table}
+    %     \centering
+     %     \vskip 4cm
+     %     \today
+     % \end{quotation}
+
+\thispagestyle{empty}
+\newpage
+\setcounter{page}{1}
+
+\section{中国梦与美国梦存在本质的差异}
+\subsection{从路径选择上讲}
+美国走的是资本主义道路。我们走的是中国特色社会主义道路，弘扬中国精神，凝聚中国力量，具有鲜明的中国特色中国风格中国气派。美国走的是资本主义道路。我们走的是中国特色社会主义道路，弘扬中国精神，凝聚中国力量，具有鲜明的中国特色中国风格中国气派。
+\subsection{从概念内涵上讲}
+“美国梦”主要以自由、繁荣为标签，宣称一个人无论什么背景，只要来到北美新大陆，通过个人奋斗，就可以实现自己的梦想。中华民族伟大复兴的“中国梦”包括国家富强、民族振兴、人民幸福三个层面，落脚点是“人民幸福”。全国各族人民是实现“中国梦”的主体力量，也是实现“中国梦”的直接受益者。因此，“中国梦”归根到底是人民的梦，是社会主义的强国富民之梦，是对“美国梦”的超越。
+\subsection{从动态或趋势上讲}
+“美国梦”早已褪去其耀眼光环，缺少新内涵和活力，缺乏可持续性。我国则持续保持着强劲发展势头，中国社会充满生机和活力，“中国梦”正一步步地从理想变为现实。
+\subsection{两种梦想存在着文化传统与文化心理的差异}
+美国文化可谓古希腊文明的现代化,古希腊的文明拥有许多异于农耕文明的特质。从地理和环境条件上讲,古希腊处于地中海的东部,也就是今天的土耳其的小亚西亚和爱琴海一带，历史上这里不适宜于农耕,所以海外贸易早早发展起来,而贸易的最大特点是平等主体自由交换，同时最大限度维护自己的利益,这种文化必然张扬个性、重视私权。
+
+中国的文化奠基于农耕或小农经济,这种经济的最大特点是个体无法抵御自然的力量，必须依靠家族和乡里，再加上封建王朝为了维护统治，采取了保甲制等方式把人紧紧地拴在土地上，再加上儒家文化的影响和塑造，一种较其他民族更深刻的人与土地、人与人的依存和依附关系得以形成。
+\subsection{两种梦想存在着政治理论与政权结构的差异}
+奥巴马美国梦奠基于天赋人权与契约关系，因为在西方人的价值观念领域，政党和政府的权力来自人民的让渡，是代理人与被代理人的关系。《独立宣言》最突出的思想就是“人人生而平等，造物者赋予他们若干不可剥夺的权利，所以，美国梦的前提是人必须享有自由，如美国参议员兰德·保罗所言：“自由一旦被剥夺，美国梦就会枯萎、死亡。”这种政治理念打着美国人的烙印，但更是整个西方政治思想的集成。
+
+习近平提出的中国梦，则是强调一个国家和民族的梦想，强调这个梦想实现后会惠及其中的每一个人，简言之这个梦想是先国家后个人。或者说由国到家，由集体到个体。实际上这是一种源于农耕文明的家国关系，价值判断是“没有国便无所谓家”。
+\subsection{中国梦必须由中国人自己来实现，美国梦可以利用其他国家的人才资源达到}
+美国多次利用其他民族的人民来发展自己的国家。比如早期从非洲引进大量黑人搞种植，十九世纪利用中国劳力修铁路，现在又大量吸收墨西哥、东欧的人从事各种各样的体力工作，很多白人成了有闲阶级，整日打高尔夫享清福。
+
+中国是一个具有13亿人的大国，不可能靠大量引进外来人才发展自己，所以习总书记才强调“实现中国梦必须走中国道路”，“实现中国梦必须弘扬中国精神”，“实现中国梦必须凝聚中国力量”。
+\subsection{中国梦是群体的和谐幸福，美国梦是个人的自由和快乐}
+中国人的幸福是群体意识的。在一个家庭内部，幸福是共享的;在一个国家内部，幸福也是共享的。所以，习近平总书记用三个“共同”来描绘中国梦的愿景：“共同享有人生出彩的机会，共同享有梦想成真的机会，共同享有同祖国和时代一起成长与进步的机会”。然而欧美文化则强调的是个人主义，追求的是个人的自由和快乐。
+\end{document}
