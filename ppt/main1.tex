@@ -1,0 +1,62 @@
+\documentclass[cjk]{beamer}
+\usepackage[UTF8,noindent]{ctexcap}
+% Warsaw
+% PaloAlto
+% AnnArbor
+% Malmoe
+\usepackage{fontspec,xunicode}
+%\defaultfontfeatures{Mapping=tex-text}
+\usetheme{Boadilla}
+\useinnertheme{circles}
+% \useoutertheme[height=0\textwidth,width=0.18\textwidth,hideothersubsections]{sidebar}
+% \useoutertheme{default}
+\usecolortheme{whale}
+
+% \newfontfamily\kaisu{STKaiti}       %定义华文楷体为\kaisu
+% \setsansfont{TeX Gyre Termes}       %设置西文字体为times new roman
+% \setCJKsansfont{SimSun}             %设置中文字体为宋体
+% \setCJKmonofont{STKaiti}
+% \setmonofont{TeX Gyre Termes}   
+\setbeamerfont{frametitle}{family=\ttfamily}
+
+\title{计算方法}
+%\subtitle{\textsc{Beamer}}
+\author{张世琛}
+\institute{计科1802\\ 计算机科学与技术学院}
+\date{\today}
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{目录}
+    \tableofcontents
+\end{frame}
+
+\begin{frame}{帧标题1}{子帧标题1}
+    \section{帧标题1}
+    \subsection{子帧标题1} 
+
+    \begin{block}{这是一个公式}
+        $$f(x)=\sum_{x=1}^N{\dfrac{1}{e^x(x+1)}}$$
+    \end{block}
+    在这里输入你要写的内容
+\end{frame}
+
+\begin{frame}{帧标题2}
+    \section{帧标题2}
+    \begin{proof}
+        这里写你的证明过程
+    \end{proof}
+    在这里输入你要写的内容+1
+\end{frame}
+
+\begin{frame}{帧标题3}
+    \section{帧标题3}
+    在这里输入你要写的内容+1\par
+    \begin{enumerate}
+        \item<1->列出你的条目1
+        \item<2->列出你的条目2
+    \end{enumerate}
+\end{frame}
+
+\end{document}
